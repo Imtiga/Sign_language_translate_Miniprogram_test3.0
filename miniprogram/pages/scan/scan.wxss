@@ -1,0 +1,169 @@
+/**scan.wxss**/
+@import "icon.wxss";
+page{
+  background: #eee;
+}
+.section{
+    margin-top:15px; 
+    line-height: 24px;
+    background: #fff;
+}
+.section .content{
+  padding: 10px 0px;
+  margin-left: 15px;
+  font-size: 14px;
+  border-bottom: 1px solid #d9d9d9; 
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+/* .radio-group{
+  clear: both;
+  overflow: hidden;
+  border-bottom: 1px solid #d9d9d9;
+}
+.btncontent{  
+  display: flex;  
+  flex-direction: row;  
+  width: 100%;
+}  
+.socket{
+  text-align: center;
+  width: 100%;
+  padding-top: 30px;
+}
+.button {  
+  background:#18b4ed;
+  border-radius: 50%;
+  display: inline-block;
+  color: white;
+  width: 90px;
+  height: 90px;  
+  margin: 0 8px; 
+  -webkit-transition:all 1s;
+  transition:all 1;
+  position: relative;
+} 
+.button:hover{
+  background:#04be02;
+}
+.button span{
+  font-size: 14px;
+}
+.button i{
+  display: block;
+  height: 45px;
+  font-size: 30px;
+}
+.bright789_view_hide{  
+ display: none;  
+}  
+.bright789_view_show{  
+ display: block;  
+}   */
+/*注册*/
+input{
+  display:inline;
+  min-height: 24px;
+}
+.page-hd{
+  padding:20px;
+  font-size:20px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.f18 {
+  font-size: 18px;
+  line-height: 18px; 
+}
+.f24 {
+  font-size: 24px;
+  line-height: 24px; 
+}
+.f30 {
+  font-size: 30px;
+  line-height: 30px; 
+}
+.f55 {
+  font-size: 55px;
+  line-height: 55px; 
+}
+.f-white{
+  color: #ffffff;
+}
+.f-red{
+  color: #ef4f4f;
+}
+.f-orange{
+  color: #FF6600;
+}
+.f-blue{
+  color: #5677fc;
+}
+.b-blue{
+  background: #5677fc !important;
+}
+.weui_cell_primary{
+  flex:1
+}
+.weui_cell_bd{
+  display: inline-block;
+}
+.weui_cell_bd text{
+  display: block;
+  line-height: 20px;
+  padding-left: 10px;
+  color: #ccc;
+}
+.weui_cell_bd text:first-child{
+  color: #000;
+}
+.weui_cell_bd:after{
+  content:" ";
+  display:inline-block;
+  -webkit-transform:rotate(45deg);
+  transform:rotate(45deg);
+  height:6px;
+  width:6px;
+  border-width:2px 2px 0 0;
+  border-color:#c8c8cd;
+  border-style:solid;
+  top:-2px;
+  position:absolute;
+  top:50%;
+  right:15px;
+  margin-top:-3px;
+}
+
+
+/*按钮*/
+.weui_btn_area{
+  margin:1.17647059em 15px .3em;
+  text-align: center;
+}
+.weui_btn_area a{
+  width: 46%;
+  display: inline-block;
+}
+.weui_btn_area a:first-child{
+  margin-right: 20px;
+}
+.weui_btn{
+  position:relative;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  padding-left:14px;
+  padding-right:14px;
+  box-sizing:border-box;
+  font-size:18px;
+  text-align:center;
+  text-decoration:none;
+  color:#fff;
+  line-height:2.33333333;
+  border-radius:5px;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  overflow:hidden;
+  background-color:#04be02;
+}

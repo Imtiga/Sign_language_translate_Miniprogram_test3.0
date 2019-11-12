@@ -1,0 +1,20 @@
+<!--scan.wxml--> 
+<view class="weui_btn_area">
+{{sousuo}}{{status}}
+    <a href="javascript:" bindtap="scandev" class="weui_btn weui_btn_primary b-blue"> 扫描</a>
+
+</view> 
+
+<view class="section">
+    <label class="content" for="s11" wx:for="{{devices}}" bindtap='gotoHead' data-mac="{{item.mac}}" >
+        <view class="weui_cell_hd">
+          <checkbox name="checkbox" id="s{{index}}" value="1" /> 
+          <i class="weui_icon_checked"></i>
+        </view>
+        <view class="weui_cell_bd weui_cell_primary">
+            <text>{{item.name}}</text>
+            <text>MAC:{{item.mac}}</text>
+            <text>RSSI:{{item.RSSI}}</text>
+        </view>
+    </label> 
+</view>
