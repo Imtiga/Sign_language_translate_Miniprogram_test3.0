@@ -6,6 +6,8 @@ var msgList = [];
 var windowWidth = wx.getSystemInfoSync().windowWidth;
 var windowHeight = wx.getSystemInfoSync().windowHeight;
 var keyHeight = 0;
+let bluetooth_msg = '0';
+let bufferStringformat = '';
 
 /**
  * 初始化数据
@@ -28,6 +30,28 @@ function initData(that) {
     msgList,
     inputVal
   })
+}
+
+//本地函数处理手套数据
+function calllocal(buffer){
+  //原本想用云函数解决数据
+  // wx.cloud.callFunction({
+  //   name: 'recieve',
+  //   data: {
+  //     //a: buffer,
+  //     a: 1,
+  //   },
+  //   success: res => {
+  //     bluetooth_msg = res.result;
+  //     console.log(bluetooth_msg) // 3
+  //   },
+  //   fail: err => {
+  //     bluetooth_msg = 'error',
+  //       console.error('[云函数] [sum] 调用失败：', err)
+  //   }
+  // })
+  bluetooth_msg = buffer;
+  return ab2str(bluetooth_msg);
 }
 
 
@@ -340,14 +364,57 @@ Page({
                   console.log("16进制收");
                   console.log(ab2str(buffer));
                   //that.setData({ receivcedata: that.data.receivcedata + ab2hex(buffer) });
-                  msgList.push({
-                    speaker: 'server',
-                    contentType: 'text',
-                    content: ab2str(buffer)
+                  bufferStringformat = ab2str(buffer)
+                  //ab2str函数在cloud.callfunction不能用
+                  //先把buffer转成string格式
+                  //再导入到data中
+                  wx.cloud.callFunction({
+                    name: 'recieve',
+                    data: {
+                      a: bufferStringformat,
+                      //a: 1,//测试用
+                    },
+                    success: res => {
+                      bluetooth_msg = res.result;
+
+                      msgList.push({
+                        speaker: 'server',
+                        contentType: 'text',
+                        //content: cloudcalllocal(buffer)//调用本地函数
+                        //JSON.stringify将bluetooth_msg转换成string格式方便输出
+                        //substring，字符串专有的函数，用于裁剪字符串，输出想要的部分
+                        content: JSON.stringify(bluetooth_msg).substring(21,                             JSON.stringify(bluetooth_msg).length - 2)
+                      })
+                      that.setData({
+                        msgList,
+                      })
+
+                      console.log(bluetooth_msg) // 3
+                    },
+                    fail: err => {
+                      bluetooth_msg = 'error',
+                        console.error('[云函数] [sum] 调用失败：', err)
+                    }
                   })
-                  that.setData({
-                    msgList,
-                  });
+                  //使用云函数请打开371-398行的wx.cloud.callfunction函数
+
+                  //左边是聋哑人手套发来的信息，就是server
+                  // msgList.push({
+                  //   speaker: 'server',
+                  //   contentType: 'text',
+                  //   content: calllocal(buffer)//调用本地函数
+
+                  //   //content: ab2str(bluetooth_msg)
+                  //   //content就是手语手套发过来的内容
+                  //   //对这个进行处理就行
+                  //   //buffer就是手语手套通过蓝牙发给小程序的信息
+                  // })
+                  // that.setData({
+                  //   msgList,
+                  // });
+                  //使用本地函数请打开上面的405-413行
+
+
                 } 
                 /*else {
                   console.log("ASCII收");
@@ -454,8 +521,11 @@ Page({
   /**
    * 发送点击监听
    */
+  //右边是customer，用户
+  //左边是聋哑人手套发的信息并显示
+  //sendclick就是customer（正常人）键入的消息
   sendClick: function (e) {
-    msgList.push({
+    msgList.push({//通过该函数将content显示在对话框中
       speaker: 'customer',
       contentType: 'text',
       content: e.detail.value
@@ -475,13 +545,11 @@ Page({
   },
 
 
-
-
   revInput: function (e) {//no use?
     this.setData({
       receivedata: e.detail.value,
     })
-},
+  },
 })
 // ArrayBuffer转16进度字符串示例
 function ab2hex(buffer) {

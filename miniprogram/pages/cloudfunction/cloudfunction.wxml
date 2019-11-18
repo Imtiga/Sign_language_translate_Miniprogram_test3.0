@@ -9,7 +9,7 @@
       <text class="request-text">期望输出：{"sum":3}</text>
     </view>
     <view class="list-item" wx:if="{{result}}">
-      <text class="request-text">调用结果：{{result}}</text>
+      <text class="request-text">{{result}}</text>
     </view>
   </view>
 
