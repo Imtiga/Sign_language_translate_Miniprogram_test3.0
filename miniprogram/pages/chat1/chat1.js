@@ -627,8 +627,10 @@ yuyinPlay: function(e){
     console.log('暂无语音');
     return;
   }
-  this.innerAudioContext.src = voice_src
-  this.innerAudioContext.play();
+  const innerAudioContext = wx.createInnerAudioContext()
+  innerAudioContext.autoplay = false
+  innerAudioContext.src = voice_src
+  innerAudioContext.play();
 },
 
 end: function(e){
